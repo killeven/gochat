@@ -28,6 +28,7 @@ func GetRedisInstance(redisOpt RedisOption) *redis.Client {
 	addr := fmt.Sprintf("%s", address)
 	syncLock.Lock()
 	if redisCli, ok := RedisClientMap[addr]; ok {
+		syncLock.Unlock()
 		return redisCli
 	}
 	client := redis.NewClient(&redis.Options{
